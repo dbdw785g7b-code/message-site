@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>处长信箱</title>
+<style>
+body{background:#f4f6f9;margin:0;}
+.box{width:550px;margin:40px auto;background:#fff;padding:25px;border-radius:8px;}
+h2{text-align:center;color:#23529c;}
+input,textarea{width:100%;margin:8px 0;padding:10px;border:1px #ddd solid;border-radius:4px;}
+textarea{height:120px;}
+.btn{width:100%;padding:12px;background:#23529c;color:#fff;border:none;border-radius:4px;font-size:16px;}
+.tip{text-align:center;color:green;margin-top:15px;display:none;}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>处长信箱</h2>
+<input id="name" placeholder="姓名">
+<input id="class" placeholder="班级/部门">
+<textarea id="text" placeholder="请输入意见建议"></textarea>
+<input id="tel" placeholder="联系方式">
+<button class="btn" onclick="submitMsg()">提交留言</button>
+<div class="tip" id="tips">提交成功！感谢反馈</div>
+</div>
+
+<script>
+function submitMsg(){
+let name=document.getElementById("name").value;
+let banji=document.getElementById("class").value;
+let nr=document.getElementById("text").value;
+let phone=document.getElementById("tel").value;
+let time=new Date().toLocaleString();
+let data=JSON.parse(localStorage.getItem("lylist")||"[]");
+data.push({name,banji,nr,phone,time});
+localStorage.setItem("lylist",JSON.stringify(data));
+document.getElementById("tips").style.display="block";
+setTimeout(()=>{
+document.getElementById("tips").style.display="none";
+document.getElementById("name").value="";
+document.getElementById("class").value="";
+document.getElementById("text").value="";
+document.getElementById("tel").value="";
+},1500)
+}
+</script>
+</body>
+</html>
